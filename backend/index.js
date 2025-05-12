@@ -12,7 +12,7 @@ const authRouter = require('./routes/auth');
 
 const app = express();
 
-// ✅ CORS dinamico con lista di origini consentite
+
 const allowedOrigins = [
   'https://strive-test.vercel.app',
   'https://strive-test-nv8idnw1p-alessandror94s-projects.vercel.app'
@@ -29,7 +29,6 @@ app.use(cors({
   credentials: true,
 }));
 
-// Middleware di sessione e Passport
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -38,15 +37,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware JSON
+
 app.use(express.json());
 
-// Connessione MongoDB
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connesso'))
   .catch(err => console.error('Errore connessione MongoDB:', err));
 
-// Rotte
+
 app.use('/auth', authRouter);
 app.use('/authors', authorsRouter);
 app.use('/blogPosts', blogPostsRouter);
